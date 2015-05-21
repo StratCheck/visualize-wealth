@@ -222,6 +222,7 @@ def test_zipped_time_chunks():
             interval = 'monthly',
             incl_T = True
     )
+    assert mc == lc
 
     res = [('06-01-2000', '06-30-2000')]
     mc = list(((pts(x), pts(y)) for x, y in res))
@@ -230,6 +231,7 @@ def test_zipped_time_chunks():
             interval = 'quarterly',
             incl_T = False
     )
+    assert mc == lc
 
     res = [('06-01-2000', '06-30-2000')]
     mc = list(((pts(x), pts(y)) for x, y in res))
@@ -238,6 +240,7 @@ def test_zipped_time_chunks():
             interval = 'quarterly',
             incl_T = False
     )
+    assert mc == lc
 
     res = [('06-01-2000', '06-30-2000'),
            ('07-01-2000', '09-08-2000')]
@@ -247,8 +250,24 @@ def test_zipped_time_chunks():
             interval = 'quarterly',
             incl_T = True
     )
+    assert mc == lc
 
-    return None
+    mc = []
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'yearly',
+            incl_T = False
+    )
+    assert mc == lc
+
+    res = [('06-01-2000', '09-08-2000')]
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'yearly',
+            incl_T = True
+    )
+    assert mc == lc
 
 """
 def test_update_store_cash(populate_updated):
