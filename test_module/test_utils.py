@@ -231,6 +231,23 @@ def test_zipped_time_chunks():
             incl_T = False
     )
 
+    res = [('06-01-2000', '06-30-2000')]
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'quarterly',
+            incl_T = False
+    )
+
+    res = [('06-01-2000', '06-30-2000'),
+           ('07-01-2000', '09-08-2000')]
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'quarterly',
+            incl_T = True
+    )
+
     return None
 
 """
