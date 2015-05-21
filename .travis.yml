@@ -21,8 +21,6 @@ install:
 
 # command to run tests
 script: 
-  - py.test ./test_module/test_analyze.py -v
-  - py.test ./test_module/test_utils.py -v
-  - py.test ./test_module/test_construct_portfolio.py -v
+  - ./run_tests
 
 # the body of this script was found by @dan-blanchard at https://gist.github.com/dan-blanchard/7045057
