@@ -20,7 +20,7 @@ from pandas.util.testing import (assert_frame_equal,
                                  assert_almost_equal
 )
 
-import visualize_wealth.utils as utils
+from visualize_wealth import utils
 
 
 @pytest.fixture
@@ -189,6 +189,49 @@ def test_strip_vals():
     strpd = utils.strip_vals(l)
     res = ['TLT', 'HYY', 'IEF']
     assert strpd == res
+
+@pytest.mark.newtest
+def test_zipped_time_chunks():
+    pts = pandas.Timestamp
+
+    index = pandas.DatetimeIndex(
+                start = '06/01/2000',
+                freq = 'D',
+                periods = 100
+    )
+    res = [('06-01-2000', '06-30-2000'), 
+           ('07-01-2000', '07-31-2000'), 
+           ('08-01-2000', '08-31-2000')]
+
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'monthly',
+            incl_T = False
+    )
+    assert mc == lc
+
+    res = [('06-01-2000', '06-30-2000'), 
+           ('07-01-2000', '07-31-2000'), 
+           ('08-01-2000', '08-31-2000'),
+           ('09-01-2000', '09-08-2000')]
+
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'monthly',
+            incl_T = True
+    )
+
+    res = [('06-01-2000', '06-30-2000')]
+    mc = list(((pts(x), pts(y)) for x, y in res))
+    lc = utils.zipped_time_chunks(
+            index = index,
+            interval = 'quarterly',
+            incl_T = False
+    )
+
+    return None
 
 """
 def test_update_store_cash(populate_updated):
