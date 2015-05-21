@@ -162,16 +162,38 @@ def test_rets_to_price():
                            index = index
     )
 
-    log = utils.rets_to_price(series, ret_typ = 'log', start_value = 100.)
-    lin = utils.rets_to_price(series, ret_typ = 'linear', start_value = 100.)
-    man = pandas.Series([100., 100., 100.], index = index)
+    log = utils.rets_to_price(
+            series, 
+            ret_typ = 'log', 
+            start_value = 100.
+    )
+
+    lin = utils.rets_to_price(
+            series, 
+            ret_typ = 'linear', 
+            start_value = 100.
+    )
+    
+    man = pandas.Series([100., 100., 100.], 
+                        index = index
+    )
 
     assert_series_equal(log, man)
     assert_series_equal(lin, man)
 
     df = pandas.DataFrame({'a': series, 'b': series})
-    log = utils.rets_to_price(df, ret_typ = 'log', start_value = 100.)
-    lin = utils.rets_to_price(df, ret_typ = 'linear', start_value = 100.)
+    log = utils.rets_to_price(
+            df, 
+            ret_typ = 'log', 
+            start_value = 100.
+    )
+    
+    lin = utils.rets_to_price(
+            df, 
+            ret_typ = 'linear', 
+            start_value = 100.
+    )
+    
     man = pandas.DataFrame({'a': man, 'b': man})
 
     assert_frame_equal(log, man)
